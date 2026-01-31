@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "../ui";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserFailure, loginUserStart, loginUserSuccess } from "../slice/auth";
@@ -17,9 +17,8 @@ const Login = () => {
   const loginHandler = async (e) => {
     e.preventDefault();
     dispatch(loginUserStart());
-    const user = { email, password };
     try {
-      const response = await AuthService.userLogin(user);
+      const response = await AuthService.userLogin({ email, password });
       dispatch(loginUserSuccess(response.user));
       navigate('/');
     } catch (error) {
@@ -28,10 +27,8 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (loggedIn) {
-      navigate('/');
-    }
-  }, [loggedIn, navigate]); 
+    if (loggedIn) navigate('/');
+  }, [loggedIn, navigate]);
 
   return (
     <div className="text-center">
@@ -42,13 +39,7 @@ const Login = () => {
           <ValidationError />
           <Input label='Email address' type="email" state={email} setState={setEmail} />
           <Input label='Password' type="password" state={password} setState={setPassword} />
-
-          <button
-            className="btn btn-primary mt-2 w-100 py-2"
-            disabled={isLoading}
-            onClick={loginHandler}
-            type="submit"
-          >
+          <button className="btn btn-primary mt-2 w-100 py-2" disabled={isLoading} onClick={loginHandler} type="submit">
             {isLoading ? 'Loading...' : 'Login'}
           </button>
         </form>
@@ -58,3 +49,4 @@ const Login = () => {
 };
 
 export default Login;
+

@@ -29,7 +29,7 @@ const EditArticle = () => {
       setDescription(response.article.description);
       setBody(response.article.body);
       dispatch(getArticleDetailSuccess(response.article));
-    } catch (error) {
+    } catch {
       dispatch(getArticleDetailFailure());
     }
   }, [dispatch, slug]);
@@ -42,12 +42,11 @@ const EditArticle = () => {
     e.preventDefault();
     const article = { title, description, body };
     dispatch(postArticleStart());
-
     try {
       await ArticleService.editArticle(slug, article);
       dispatch(postArticleSuccess());
       navigate('/');
-    } catch (error) {
+    } catch {
       dispatch(postArticleFailure());
     }
   };

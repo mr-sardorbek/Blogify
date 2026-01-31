@@ -18,10 +18,8 @@ const Register = () => {
   const registerHandler = async (e) => {
     e.preventDefault();
     dispatch(registerUserStart());
-    const user = { username, email, password };
-
     try {
-      const response = await AuthService.userRegister(user);
+      const response = await AuthService.userRegister({ username, email, password });
       dispatch(registerUserSuccess(response.user));
       navigate('/');
     } catch (error) {
@@ -30,10 +28,8 @@ const Register = () => {
   };
 
   useEffect(() => {
-    if (loggedIn) {
-      navigate('/');
-    }
-  }, [loggedIn, navigate]); 
+    if (loggedIn) navigate('/');
+  }, [loggedIn, navigate]);
 
   return (
     <div className="text-center">
@@ -45,13 +41,7 @@ const Register = () => {
           <Input label='Username' state={username} setState={setUsername} />
           <Input label='Email address' type="email" state={email} setState={setEmail} />
           <Input label='Password' type="password" state={password} setState={setPassword} />
-
-          <button
-            className="btn btn-primary mt-2 w-100 py-2"
-            disabled={isLoading}
-            onClick={registerHandler}
-            type="submit"
-          >
+          <button className="btn btn-primary mt-2 w-100 py-2" disabled={isLoading} onClick={registerHandler} type="submit">
             {isLoading ? 'Loading...' : 'Register'}
           </button>
         </form>
@@ -61,4 +51,5 @@ const Register = () => {
 };
 
 export default Register;
+
 

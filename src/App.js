@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Main, Login, Register, Navbar, ArticleDetail, CreateArticle, EditArticle } from './components/index';
+import { Main, Login, Register, Navbar, ArticleDetail, CreateArticle, EditArticle } from './components';
 import { useEffect, useCallback } from "react";
 import AuthService from "./service/auth";
 import { useDispatch } from "react-redux";
@@ -20,9 +20,7 @@ const App = () => {
 
   useEffect(() => {
     const token = getItem('token');
-    if (token) {
-      getUser();
-    }
+    if (token) getUser();
   }, [getUser]);
 
   return (
@@ -43,4 +41,5 @@ const App = () => {
 };
 
 export default App;
+
 

@@ -6,7 +6,7 @@ import { getArticleFailure, getArticleStart, getArticleSuccess } from "../slice/
 import ArticalCard from "./artical-card";
 
 const Main = () => {
-  const { articles, isLoading } = useSelector((state) => state.article);
+  const { articles, isLoading } = useSelector(state => state.article);
   const dispatch = useDispatch();
 
   const getArticles = useCallback(async () => {
@@ -23,14 +23,12 @@ const Main = () => {
     getArticles();
   }, [getArticles]);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  if (isLoading) return <Loader />;
 
   return (
     <div className="album py-5">
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {articles?.map((item) => (
+        {articles?.map(item => (
           <ArticalCard key={item.slug} item={item} getArticles={getArticles} />
         ))}
       </div>
